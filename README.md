@@ -1,6 +1,8 @@
 # Dog Breed Classifier Web App
 
-This project is web app for classifying dog breeds using flask
+* This project is web app for classifying dog breeds using flask
+* Creating classifier for this project can be found in 
+https://github.com/aylingizem/DogBreedClassifier/tree/master/dog-project
 
 ## Example 1
 
