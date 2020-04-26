@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>Dog Image Classifier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <form id="image-form">
+                <h1>Dog Image Classifier</h1>
+                <br>
+                <h3>Upload dog picture</h3>
+                <br>
+                <div class="form-group">
+                    <input name="img_file" type="file" accept="image/*" onchange="loadFile(event)">
+                </div>
+                <div class="form-group">
+                    <img id="output" width="300px" height="300px"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 text-center">
+           <div id="result"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src)
+    }
+  };
+  const formEl = document.querySelector('#image-form');
+  formEl.addEventListener('submit', function (e) {
+      e.preventDefault()
+      console.log(e)
+      var input = document.querySelector('input[type="file"]')
+
+      var data = new FormData()
+      for (const file of input.files) {
+          data.append('image',file,file.name)
+      }
+      document.getElementById('result').innerHTML=`
+      <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      `;
+
+      fetch('/predict', {
+          method: 'POST',
+          body: data
+      }).then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        document.getElementById('result').innerHTML=`
+          <h4>Match Found</h4>
+          <h5>${data.dog}</h5>
+        `;
+      });
+
+  })
+</script>
+</html>
