@@ -40,7 +40,7 @@ conda-build==3.18.11
 conda-package-handling==1.6.0
 conda-verify==3.4.2
 contextily==1.0rc2
-cryptography==2.8
+cryptography==3.2
 cufflinks==0.17.3
 cycler==0.10.0
 dash==1.9.0
