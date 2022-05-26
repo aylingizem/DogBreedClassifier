@@ -222,7 +222,7 @@ tobler==0.2.0
 tornado==6.0.4
 tqdm==4.43.0
 traitlets==4.3.3
-ujson==1.35
+ujson==5.2.0
 urllib3==1.25.8
 watchdog==0.10.2
 watermark==2.0.2
